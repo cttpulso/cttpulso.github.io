@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulso — Gestão Operacional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #080808;
+      color: #f0ede6;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .p-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.6rem 2.5rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+      position: sticky;
+      top: 0;
+      background: #080808;
+      z-index: 100;
+    }
+
+    .p-nav-logo img {
+      height: 36px;
+      display: block;
+    }
+
+    .p-nav-cta {
+      background: #f0ede6;
+      color: #080808;
+      border: none;
+      padding: 0.55rem 1.4rem;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .p-nav-cta:hover { opacity: 0.88; }
+
+    /* HERO */
+    .p-hero {
+      padding: 7rem 2.5rem 5rem;
+      max-width: 860px;
+    }
+
+    .p-hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.45);
+      margin-bottom: 2.2rem;
+    }
+
+    .p-hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #f0ede6;
+      margin-bottom: 2rem;
+    }
+
+    .p-hero-h1 em {
+      font-style: normal;
+      color: rgba(240,237,230,0.4);
+    }
+
+    .p-hero-p {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.65);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+
+    .p-hero-p strong { color: #f0ede6; font-weight: 600; }
+
+    .p-btn-ghost {
+      display: inline-block;
+      border: 0.5px solid rgba(240,237,230,0.35);
+      color: #f0ede6;
+      padding: 0.85rem 2.2rem;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .p-btn-ghost:hover {
+      border-color: rgba(240,237,230,0.6);
+      background: rgba(240,237,230,0.04);
+    }
+
+    /* DIVISOR */
+    .p-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.07); }
+
+    /* NÚMEROS */
+    .p-numeros {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-num-item {
+      padding: 3rem 2.5rem;
+      border-right: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-num-item:last-child { border-right: none; }
+
+    .p-num-val {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #f0ede6;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .p-num-label {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.55);
+      line-height: 1.5;
+    }
+
+    /* O QUE É */
+    .p-oque {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-oque-left {
+      padding: 4rem 2.5rem;
+      border-right: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-oque-right { padding: 4rem 2.5rem; }
+
+    .p-section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.38);
+      margin-bottom: 1.5rem;
+    }
+
+    .p-oque-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: #f0ede6;
+      margin-bottom: 1.5rem;
+    }
+
+    .p-oque-body {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.62);
+      line-height: 1.8;
+    }
+
+    .p-oque-body strong { color: #f0ede6; font-weight: 600; }
+
+    /* COMO FUNCIONA */
+    .p-como {
+      padding: 4rem 2.5rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-como-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: #f0ede6;
+      margin-bottom: 3rem;
+    }
+
+    .p-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-step { background: #080808; padding: 2rem 1.5rem; }
+
+    .p-step-n {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: rgba(240,237,230,0.3);
+      margin-bottom: 1.2rem;
+    }
+
+    .p-step-t {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f0ede6;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .p-step-d {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.55);
+      line-height: 1.6;
+    }
+
+    /* PLANOS */
+    .p-planos {
+      padding: 4rem 2.5rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-planos-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+    }
+
+    .p-planos-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: #f0ede6;
+    }
+
+    .p-planos-note {
+      font-size: 12px;
+      color: rgba(240,237,230,0.35);
+      font-style: italic;
+    }
+
+    .p-planos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      margin-bottom: 1px;
+    }
+
+    .p-plano { background: #080808; padding: 2rem; }
+    .p-plano.mid { background: #0e0e0e; }
+
+    .p-plano-nome {
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.6);
+      margin-bottom: 0.3rem;
+    }
+
+    .p-plano.mid .p-plano-nome { color: rgba(240,237,230,0.85); }
+
+    .p-plano-range {
+      font-size: 11px;
+      color: rgba(240,237,230,0.32);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.8rem;
+    }
+
+    .p-preco-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.65rem 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.05);
+    }
+
+    .p-preco-row:last-child { border-bottom: none; }
+
+    .p-preco-item { font-size: 12px; font-weight: 400; color: rgba(240,237,230,0.5); }
+    .p-preco-val { font-size: 13px; font-weight: 600; color: #f0ede6; }
+
+    .p-setup {
+      font-size: 11px;
+      color: rgba(240,237,230,0.28);
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* EXTRA */
+    .p-extra-section {
+      padding: 4rem 2.5rem;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-extra-section-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: #f0ede6;
+      margin-bottom: 0.5rem;
+    }
+
+    .p-extra-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.55);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .p-extra-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      margin-bottom: 2rem;
+    }
+
+    .p-extra-item { background: #080808; padding: 1.8rem 1.5rem; }
+
+    .p-extra-icon {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.25);
+      margin-bottom: 0.8rem;
+    }
+
+    .p-extra-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f0ede6;
+      margin-bottom: 0.4rem;
+    }
+
+    .p-extra-item-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.48);
+      line-height: 1.55;
+    }
+
+    .p-extra-price-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .p-extra-price {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #f0ede6;
+      letter-spacing: -0.02em;
+    }
+
+    .p-extra-price-sub {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.45);
+    }
+
+    /* CTA FINAL */
+    .p-cta {
+      padding: 6rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .p-cta-h {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #f0ede6;
+    }
+
+    .p-cta-h em { font-style: normal; color: rgba(240,237,230,0.3); }
+
+    .p-cta-right { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .p-cta-p {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(240,237,230,0.58);
+      line-height: 1.7;
+    }
+
+    .p-btn-solid {
+      background: #f0ede6;
+      color: #080808;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      align-self: flex-start;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+
+    .p-btn-solid:hover { opacity: 0.88; }
+
+    .p-wpp {
+      font-size: 12px;
+      color: rgba(240,237,230,0.35);
+      font-weight: 400;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .f-logo img { height: 22px; opacity: 0.35; }
+    .f-info { font-size: 11px; color: rgba(240,237,230,0.25); letter-spacing: 0.05em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .p-numeros { grid-template-columns: 1fr; }
+      .p-num-item { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+      .p-oque { grid-template-columns: 1fr; }
+      .p-oque-left { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+      .p-steps { grid-template-columns: 1fr 1fr; }
+      .p-planos-grid { grid-template-columns: 1fr; }
+      .p-extra-grid { grid-template-columns: 1fr 1fr; }
+      .p-cta { grid-template-columns: 1fr; gap: 2rem; }
+      .p-planos-header { flex-direction: column; gap: 0.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .p-nav { padding: 1.2rem 1.5rem; }
+      .p-hero { padding: 4rem 1.5rem 3rem; }
+      .p-steps { grid-template-columns: 1fr; }
+      .p-extra-grid { grid-template-columns: 1fr; }
+      .p-planos { padding: 3rem 1.5rem; }
+      .p-extra-section { padding: 3rem 1.5rem; }
+      .p-cta { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; }
+      .p-extra-price-row { flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="p-nav">
+    <div class="p-nav-logo">
+      <!-- Substitua pelo caminho correto da sua logo -->
+      <img src="logo.png" alt="Pulso" />
+    </div>
+    <a href="#contato" class="p-nav-cta">Quero começar →</a>
+  </nav>
+
+  <section class="p-hero">
+    <p class="p-hero-tag">Gestão operacional para autônomos</p>
+    <h1 class="p-hero-h1">Você cuida<br>do seu trabalho.<br><em>A gente cuida do resto.</em></h1>
+    <p class="p-hero-p">Confirmações, cobranças, remarcações — tudo isso consome seu tempo e energia todo dia. <strong>A Pulso assume essa operação para você.</strong></p>
+    <a href="#como-funciona" class="p-btn-ghost">Ver como funciona</a>
+  </section>
+
+  <hr class="p-divider" />
+
+  <div class="p-numeros">
+    <div class="p-num-item">
+      <div class="p-num-val">3h+</div>
+      <div class="p-num-label">economizadas por semana<br>em tarefas operacionais</div>
+    </div>
+    <div class="p-num-item">
+      <div class="p-num-val">0</div>
+      <div class="p-num-label">apps novos para aprender.<br>Tudo pelo WhatsApp.</div>
+    </div>
+    <div class="p-num-item">
+      <div class="p-num-val">100%</div>
+      <div class="p-num-label">no seu nome,<br>com o seu tom de voz</div>
+    </div>
+  </div>
+
+  <div class="p-oque">
+    <div class="p-oque-left">
+      <p class="p-section-label">O que é a Pulso</p>
+      <h2 class="p-oque-title">Gestão operacional.<br>Sem enrolação.</h2>
+      <p class="p-oque-body">A Pulso é um serviço de gestão operacional para quem trabalha com clientes recorrentes — <strong>terapeutas, coaches, personal trainers, professores, consultores.</strong><br><br>A gente cuida da sua agenda, das suas cobranças e do seu painel — enquanto você foca no que realmente importa.</p>
+    </div>
+    <div class="p-oque-right">
+      <p class="p-section-label">Para quem é</p>
+      <p class="p-oque-body" style="margin-bottom:1.2rem;">Para o profissional que <strong>já tem clientes</strong>, mas ainda perde tempo toda semana confirmando horário, mandando mensagem de cobrança e reorganizando agenda.</p>
+      <p class="p-oque-body">Se você já pensou "preciso de uma assistente", a Pulso é exatamente isso — <strong>sem CLT, sem processo seletivo, sem complicação.</strong></p>
+    </div>
+  </div>
+
+  <div class="p-como" id="como-funciona">
+    <p class="p-section-label">Como funciona</p>
+    <h2 class="p-como-title">Simples assim.</h2>
+    <div class="p-steps">
+      <div class="p-step">
+        <p class="p-step-n">01</p>
+        <p class="p-step-t">Você entra</p>
+        <p class="p-step-d">Setup rápido. A gente aprende a sua rotina, seu tom, seus clientes.</p>
+      </div>
+      <div class="p-step">
+        <p class="p-step-n">02</p>
+        <p class="p-step-t">A gente assume</p>
+        <p class="p-step-d">Confirmações, cobranças e remarcações saem do seu prato.</p>
+      </div>
+      <div class="p-step">
+        <p class="p-step-n">03</p>
+        <p class="p-step-t">Você acompanha</p>
+        <p class="p-step-d">Painel online. Agenda e cobranças numa página só, em tempo real.</p>
+      </div>
+      <div class="p-step">
+        <p class="p-step-n">04</p>
+        <p class="p-step-t">Você respira</p>
+        <p class="p-step-d">A burocracia é nossa. O seu tempo, seu.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-planos">
+    <div class="p-planos-header">
+      <h2 class="p-planos-title">Planos recorrentes</h2>
+      <span class="p-planos-note">Acima de 60 clientes: orçamento sob consulta</span>
+    </div>
+    <div class="p-planos-grid">
+      <div class="p-plano">
+        <p class="p-plano-nome">Pulso</p>
+        <p class="p-plano-range">até 15 clientes ativos</p>
+        <div class="p-preco-row"><span class="p-preco-item">agenda</span><span class="p-preco-val">R$ 350</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">cobranças</span><span class="p-preco-val">R$ 350</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">agenda + cobranças</span><span class="p-preco-val">R$ 600</span></div>
+      </div>
+      <div class="p-plano mid">
+        <p class="p-plano-nome">Fluxo</p>
+        <p class="p-plano-range">16 a 40 clientes ativos</p>
+        <div class="p-preco-row"><span class="p-preco-item">agenda</span><span class="p-preco-val">R$ 550</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">cobranças</span><span class="p-preco-val">R$ 550</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">agenda + cobranças</span><span class="p-preco-val">R$ 950</span></div>
+      </div>
+      <div class="p-plano">
+        <p class="p-plano-nome">Pico</p>
+        <p class="p-plano-range">41 a 60 clientes ativos</p>
+        <div class="p-preco-row"><span class="p-preco-item">agenda</span><span class="p-preco-val">R$ 850</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">cobranças</span><span class="p-preco-val">R$ 850</span></div>
+        <div class="p-preco-row"><span class="p-preco-item">agenda + cobranças</span><span class="p-preco-val">R$ 1.450</span></div>
+      </div>
+    </div>
+    <p class="p-setup">* Setup único de R$ 250 cobrado na entrada.</p>
+  </div>
+
+  <div class="p-extra-section">
+    <p class="p-section-label">Serviço Extra</p>
+    <h2 class="p-extra-section-title">Precisa de algo pontual?</h2>
+    <p class="p-extra-subtitle">Além dos planos mensais, a Pulso também resolve projetos específicos — quando você precisa organizar, documentar ou estruturar alguma coisa de uma vez.</p>
+    <div class="p-extra-grid">
+      <div class="p-extra-item">
+        <p class="p-extra-icon">01</p>
+        <p class="p-extra-item-title">Manual Interno</p>
+        <p class="p-extra-item-desc">Documenta processos e rotinas do seu negócio de forma clara e reutilizável.</p>
+      </div>
+      <div class="p-extra-item">
+        <p class="p-extra-icon">02</p>
+        <p class="p-extra-item-title">Mapeamento de Processos</p>
+        <p class="p-extra-item-desc">Identifica gargalos e organiza o fluxo de trabalho de ponta a ponta.</p>
+      </div>
+      <div class="p-extra-item">
+        <p class="p-extra-icon">03</p>
+        <p class="p-extra-item-title">Fluxo de Trabalho</p>
+        <p class="p-extra-item-desc">Organiza sua operação para funcionar sem depender da sua memória.</p>
+      </div>
+      <div class="p-extra-item">
+        <p class="p-extra-icon">04</p>
+        <p class="p-extra-item-title">Apresentação</p>
+        <p class="p-extra-item-desc">Criação de decks para clientes, parceiros ou eventos.</p>
+      </div>
+    </div>
+    <div class="p-extra-price-row">
+      <span class="p-extra-price">a partir de R$ 400</span>
+      <span class="p-extra-price-sub">por projeto · orçamento sob consulta</span>
+    </div>
+  </div>
+
+  <div class="p-cta" id="contato">
+    <h2 class="p-cta-h">Pronto para<br>parar de<br>fazer tudo?<em>.</em></h2>
+    <div class="p-cta-right">
+      <p class="p-cta-p">Manda uma mensagem. A gente entende a sua rotina e te conta qual plano faz mais sentido pra você.</p>
+      <!-- Substitua o link pelo seu WhatsApp ou e-mail -->
+      <a href="https://wa.me/5500000000000" class="p-btn-solid" target="_blank">Falar com a Pulso</a>
+      <p class="p-wpp">Respondemos pelo WhatsApp · hello@reallygreatsite.com</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="f-logo">
+      <img src="logo.png" alt="Pulso" />
+    </div>
+    <p class="f-info">© 2025 Pulso · Gestão Operacional</p>
+  </footer>
+
+</body>
+</html>
